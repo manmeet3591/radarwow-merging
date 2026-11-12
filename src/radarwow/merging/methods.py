@@ -2,7 +2,7 @@
 doi:10.5194/hess-13-195-2009 (their codes in brackets):
 
 - `mean_field_bias` [MFB]: one factor sum(G) / sum(R) for the whole field.
-- `brandes` [BRA]: Brandes 1975 (J. Appl. Meteor. 14, 1339-1345, doi:10.1175/1520-0450(1975)014<1339:OROBAR>2.0.CO;2);
+- `brandes` [BRA]: Brandes 1975 (J. Appl. Meteor. 14, 1339-1345, doi:10.1175/1520-0450(1975)014<1339:OREWTA>2.0.CO;2);
   gauge/radar factors spread with Barnes weights exp(-d^2 / k), k = 1 / (2 * gauge density).
 - `ordinary_kriging` [KRI]: gauges only.
 - `conditional_merging` [KRE]: Sinclair & Pegram 2005 (Atmos. Sci. Lett. 6, 19-22, doi:10.1002/asl.85); kriged
