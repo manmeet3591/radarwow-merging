@@ -116,7 +116,9 @@ def merge(method: str, field, x, y, gx, gy, g, area_km2=None):
 
 
 def leave_one_out(method: str, field, x, y, gx, gy, g, area_km2=None):
-    """Estimate at each gauge from all the others (radar value at the left-out gauge = its 3 x 3 cell mean)."""
+    """Estimate at each gauge from all the others (radar value at the left-out gauge = its 3 x 3 cell mean).
+
+    NaN where the left-out gauge has no radar value or fewer than 3 other usable gauges remain."""
     gx, gy, g = map(np.asarray, (gx, gy, g))
     r_g = radar_at(field, x, y, gx, gy)
     ok = np.isfinite(field)
@@ -128,6 +130,8 @@ def leave_one_out(method: str, field, x, y, gx, gy, g, area_km2=None):
         others = np.ones(len(g), bool)
         others[k] = False
         others &= np.isfinite(r_g) & np.isfinite(g)
+        if others.sum() < 3:  # too few gauges left to merge with: no estimate
+            continue
         est[k] = METHODS[method](radar_trg=np.array([r_g[k]]), g=g[others], r_g=r_g[others], g_xy=np.c_[gx, gy][others],
                                  trg_xy=np.array([[gx[k], gy[k]]]), area_km2=area_km2)[0]
     return est
